@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Dashboard</h1>
+    <h2>Shipments</h2>
+    <ul>
+      {% for shipment in shipments %}
+        <li>{{ shipment.tracking_number }}: {{ shipment.status }}</li>
+      {% else %}
+        <li>No shipments available.</li>
+      {% endfor %}
+    </ul>
+    
+    <h2>Inventory</h2>
+    <ul>
+      {% for item in inventory %}
+        <li>{{ item.product_name }}: {{ item.quantity }}</li>
+      {% else %}
+        <li>No inventory items available.</li>
+      {% endfor %}
+    </ul>
+    
+    <h2>Vehicles</h2>
+    <ul>
+      {% for vehicle in vehicles %}
+        <li>{{ vehicle.vehicle_type }} at {{ vehicle.current_location }}</li>
+      {% else %}
+        <li>No vehicles available.</li>
+      {% endfor %}
+    </ul>
+</div>
+{% endblock %}

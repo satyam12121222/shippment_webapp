@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Manage Vehicles</h1>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVehicleModal">
+        + Add New Vehicle
+    </button>
+    <div class="table-responsive mt-4">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Vehicle Type</th>
+                    <th>Capacity</th>
+                    <th>Current Location</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in vehicles %}
+                <tr>
+                    <td>{{ vehicle.vehicle_type }}</td>
+                    <td>{{ vehicle.capacity }}</td>
+                    <td>{{ vehicle.current_location }}</td>
+                    <td>{{ vehicle.status }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">No vehicles available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Vehicle Modal -->
+<div class="modal fade" id="addVehicleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="{{ url_for('manage_vehicles') }}">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Add New Vehicle</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Vehicle Type</label>
+                        <input type="text" name="vehicle_type" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Capacity</label>
+                        <input type="number" name="capacity" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Current Location</label>
+                        <input type="text" name="current_location" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-select" required>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Vehicle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
